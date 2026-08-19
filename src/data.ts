@@ -1,0 +1,573 @@
+import { Employee, CustomerFeedback, StaffEvaluation } from './types';
+
+export const DEFAULT_EMPLOYEES: Employee[] = [
+  {
+    id: 'emp-1',
+    name: "Awa Diop",
+    role: "Caissière Principale",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Awa",
+    allocatedLeaves: 30,
+    scheduleStartHour: 8,
+    scheduleEndHour: 17,
+    scheduleDays: "Lun - Ven",
+    cnss: "12345678-90",
+    dateEmbauche: "2024-03-15",
+    username: "awa.diop",
+    password: "awa",
+    isSupervisor: false,
+    isCaisse: true,
+    bio: "Awa est responsable de la caisse centrale depuis plus de deux ans. Elle est rigoureuse, souriante et passionnée par le service à la clientèle.",
+    isScheduleApproved: true,
+    leaveHistory: [
+      {
+        id: 'leave-1-1',
+        startDate: "2026-04-10",
+        endDate: "2026-04-15",
+        days: 6,
+        status: "approved",
+        requestDate: "2026-03-20"
+      },
+      {
+        id: 'leave-1-2',
+        startDate: "2026-08-01",
+        endDate: "2026-08-10",
+        days: 10,
+        status: "pending",
+        requestDate: "2026-07-01"
+      }
+    ]
+  },
+  {
+    id: 'emp-2',
+    name: "Mamadou Diallo",
+    role: "Gestionnaire de Stock",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mamadou",
+    allocatedLeaves: 30,
+    scheduleStartHour: 7,
+    scheduleEndHour: 16,
+    scheduleDays: "Lun - Sam",
+    cnss: "23456789-01",
+    dateEmbauche: "2023-09-01",
+    username: "mamadou.diallo",
+    password: "mam",
+    isSupervisor: false,
+    isCaisse: false,
+    bio: "Mamadou orchestre l'ensemble des flux de médicaments et d'intrants au sein de notre pharmacie internationale. Un pro de l'organisation !",
+    isScheduleApproved: true,
+    leaveHistory: [
+      {
+        id: 'leave-2-1',
+        startDate: "2026-05-01",
+        endDate: "2026-05-05",
+        days: 5,
+        status: "approved",
+        requestDate: "2026-04-15"
+      }
+    ]
+  },
+  {
+    id: 'emp-3',
+    name: "Koffi Mensah",
+    role: "Pharmacien Assistant & Superviseur",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Koffi",
+    allocatedLeaves: 30,
+    scheduleStartHour: 9,
+    scheduleEndHour: 18,
+    scheduleDays: "Lun - Ven",
+    cnss: "34567890-12",
+    dateEmbauche: "2022-01-10",
+    username: "koffi.mensah",
+    password: "kof",
+    isSupervisor: true,
+    isPfQualite: true,
+    isCaisse: false,
+    bio: "Pharmacien diplômé, Koffi assiste le pharmacien gérant et supervise les équipes de caisse et de comptabilité avec bienveillance.",
+    isScheduleApproved: true,
+    leaveHistory: [
+      {
+        id: 'leave-3-1',
+        startDate: "2026-12-20",
+        endDate: "2027-01-03",
+        days: 15,
+        status: "pending",
+        requestDate: "2026-06-15"
+      }
+    ]
+  },
+  {
+    id: 'emp-4',
+    name: "Fatou Bensouda",
+    role: "Comptable",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Fatou",
+    allocatedLeaves: 30,
+    scheduleStartHour: 8,
+    scheduleEndHour: 16,
+    scheduleDays: "Lun - Ven",
+    cnss: "45678901-23",
+    dateEmbauche: "2025-01-05",
+    username: "fatou.b",
+    password: "fat",
+    isSupervisor: false,
+    isCaisse: false,
+    bio: "Fatou assure la transparence financière de l'officine. Ses compétences en fiscalité et audit garantissent notre parfaite conformité.",
+    isScheduleApproved: false,
+    leaveHistory: []
+  },
+  {
+    id: 'emp-5',
+    name: "Youssouf Koné",
+    role: "Préparateur en Pharmacie",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Youssouf",
+    allocatedLeaves: 30,
+    scheduleStartHour: 10,
+    scheduleEndHour: 19,
+    scheduleDays: "Lun - Sam",
+    cnss: "56789012-34",
+    dateEmbauche: "2024-06-20",
+    username: "youssouf.k",
+    password: "you",
+    isSupervisor: false,
+    isCaisse: false,
+    bio: "Youssouf prépare les ordonnances avec minutie et conseille nos patients sur la bonne prise de leurs traitements.",
+    isScheduleApproved: true,
+    leaveHistory: [
+      {
+        id: 'leave-5-1',
+        startDate: "2026-02-10",
+        endDate: "2026-02-14",
+        days: 5,
+        status: "rejected",
+        requestDate: "2026-01-10"
+      }
+    ]
+  }
+];
+
+export const DEFAULT_GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeQ4gWb9_V_MICRO_CLIENTS_PHARMACIE_INTL/viewform?usp=sf_link";
+
+export const initialCustomerFeedbacks = [
+  {
+    id: "fb-1",
+    author: "Mme Aïcha Traoré",
+    content: "Un service remarquable ce matin ! L'équipe a pris le temps de m'expliquer la posologie exacte du traitement pour mon fils avec beaucoup de patience et de douceur. La pharmacie est toujours impeccable et propre.",
+    submittedAt: "2026-08-16T09:45:00",
+    category: "Accueil & Conseils",
+    rating: 5,
+    likes: 8,
+    isPinned: true,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-2",
+    author: "M. Jean-Baptiste Kouassi",
+    content: "Bravo pour la rapidité au niveau de la caisse. Même avec l'affluence du début de semaine, je n'ai attendu que deux minutes pour récupérer mes produits. Très courtois et professionnels.",
+    submittedAt: "2026-08-16T08:15:00",
+    category: "Caisse & Rapidité",
+    rating: 5,
+    likes: 5,
+    isPinned: false,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-3",
+    author: "Client Anonyme",
+    content: "J'ai trouvé tous les médicaments d'urgence prescrits par mon médecin alors qu'ils étaient en rupture ailleurs. Merci d'avoir un stock toujours bien approvisionné même le week-end.",
+    submittedAt: "2026-08-15T18:30:00",
+    category: "Disponibilité Produits",
+    rating: 5,
+    likes: 12,
+    isPinned: true,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-4",
+    author: "Mme Salimata Cissé",
+    content: "Très bon accueil lors de la garde de nuit. Le pharmacien était attentif, bienveillant et m'a donné d'excellents conseils de santé. On se sent en confiance dès l'entrée.",
+    submittedAt: "2026-08-15T22:10:00",
+    category: "Service de Garde",
+    rating: 5,
+    likes: 7,
+    isPinned: false,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-5",
+    author: "Dr. Oumar Sanogo",
+    content: "Excellente prise en charge des ordonnances complexes. La préparation magistrale a été réalisée rapidement et avec un étiquetage d'une clarté irréprochable.",
+    submittedAt: "2026-08-14T14:20:00",
+    category: "Préparations & Ordonnances",
+    rating: 5,
+    likes: 4,
+    isPinned: false,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-6",
+    author: "M. David Mensah",
+    content: "Le personnel au comptoir est toujours souriant. Suggestion : peut-être prévoir un banc supplémentaire pour les personnes âgées lors des heures de pointe. Sinon continuez ainsi !",
+    submittedAt: "2026-08-12T11:05:00",
+    category: "Suggestions & Confort",
+    rating: 4,
+    likes: 9,
+    isPinned: false,
+    formSource: "google_form"
+  },
+  {
+    id: "fb-7",
+    author: "Mme Mariam Diallo",
+    content: "Fidèle cliente depuis plusieurs années, la Pharmacie Internationale reste ma référence absolue pour le conseil pharmaceutique et les produits de parapharmacie de qualité.",
+    submittedAt: "2026-08-08T16:40:00",
+    category: "Fidélité & Confiance",
+    rating: 5,
+    likes: 6,
+    isPinned: false,
+    formSource: "google_form"
+  }
+];
+
+export const initialStaffEvaluations: StaffEvaluation[] = [
+  // AOÛT 2026
+  {
+    id: "eval-1",
+    date: "2026-08-15",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Ponctualité exemplaire et accueil irréprochable des patients",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Présence continue et prise en charge proactive aux heures d'affluence.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-15T18:30:00",
+    createdAt: "2026-08-15T17:45:00"
+  },
+  {
+    id: "eval-2",
+    date: "2026-08-14",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: 1,
+    motif: "Inventaire et réapprovisionnement d'urgence bouclé en avance",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Rangement méthodique des rayons parapharmacie sans perturbation de service.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-14T19:00:00",
+    createdAt: "2026-08-14T18:15:00"
+  },
+  {
+    id: "eval-3",
+    date: "2026-08-13",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: -1,
+    motif: "Retard de 20 minutes à l'ouverture du dépôt central",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Panne imprévue sur le trajet, rattrapé en restant 30 min après la fin de service.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-13T20:10:00",
+    createdAt: "2026-08-13T09:30:00"
+  },
+  {
+    id: "eval-4",
+    date: "2026-08-12",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: 1,
+    motif: "Bilan comptable intermédiaire transmis sans aucune anomalie",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Rapprochement bancaire et pointage de caisse effectués scrupuleusement.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-12T17:50:00",
+    createdAt: "2026-08-12T17:30:00"
+  },
+  {
+    id: "eval-5",
+    date: "2026-08-11",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Préparation magistrale d'urgence réalisée avec rigueur",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Protocole de sécurité suivi à la lettre et délivrance en moins de 25 min.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-11T16:45:00",
+    createdAt: "2026-08-11T16:00:00"
+  },
+  {
+    id: "eval-6",
+    date: "2026-08-10",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Tenue de caisse sans aucun écart et accueil souriant",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Remise à zéro conforme et pointage des bordereaux.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-10T09:15:00",
+    createdAt: "2026-08-10T08:30:00"
+  },
+  {
+    id: "eval-6b",
+    date: "2026-08-08",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: 1,
+    motif: "Télétransmissions mutuelles régularisées avec succès",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Traitement exhaustif des rejets tiers payant.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-08T18:00:00",
+    createdAt: "2026-08-08T17:30:00"
+  },
+  {
+    id: "eval-6c",
+    date: "2026-08-05",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Assistance rapide au déballage et étiquetage des médicaments",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Mise en rayon ordonnée selon les règles FEFO.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-08-05T17:00:00",
+    createdAt: "2026-08-05T16:30:00"
+  },
+
+  // JUILLET 2026
+  {
+    id: "eval-7",
+    date: "2026-07-28",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Gestion irréprochable de la caisse durant les soldes d'été",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Zéro écart de caisse constaté sur tout le mois de juillet.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-28T18:00:00",
+    createdAt: "2026-07-28T17:30:00"
+  },
+  {
+    id: "eval-8",
+    date: "2026-07-20",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Accueil bienveillant et orientation efficace des patients âgés",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Prise en charge personnalisée saluée par les usagers.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-20T17:00:00",
+    createdAt: "2026-07-20T16:40:00"
+  },
+  {
+    id: "eval-9",
+    date: "2026-07-15",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: 1,
+    motif: "Réception sans faille d'une livraison de vaccins sensibles",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Chaîne du froid respectée scrupuleusement avec traçabilité complète.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-15T15:30:00",
+    createdAt: "2026-07-15T15:00:00"
+  },
+  {
+    id: "eval-10",
+    date: "2026-07-10",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: 1,
+    motif: "Optimisation de la gestion des factures fournisseurs",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Échéancier mis à jour et lettrage sans faute.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-10T18:00:00",
+    createdAt: "2026-07-10T17:20:00"
+  },
+  {
+    id: "eval-11",
+    date: "2026-07-05",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Entretien méticuleux du préparatoire et matériel stérilisé",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Cahier d'hygiène rempli quotidiennement.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-05T14:30:00",
+    createdAt: "2026-07-05T14:00:00"
+  },
+  {
+    id: "eval-11b",
+    date: "2026-07-02",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: 1,
+    motif: "Alerte précoce sur une date courte évitant une perte de stock",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Contrôle visuel systématique des bacs de conservation.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-07-02T16:00:00",
+    createdAt: "2026-07-02T15:30:00"
+  },
+
+  // JUIN 2026
+  {
+    id: "eval-12",
+    date: "2026-06-25",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Écoute attentive et conseils chaleureux remarqués par la clientèle",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Félicitations directes reçues de plusieurs patients fidèles.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-06-25T18:00:00",
+    createdAt: "2026-06-25T17:30:00"
+  },
+  {
+    id: "eval-13",
+    date: "2026-06-20",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Précision dans les pesées et respect des formules d'officine",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Double contrôle systématique des principes actifs.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-06-20T17:30:00",
+    createdAt: "2026-06-20T17:00:00"
+  },
+  {
+    id: "eval-14",
+    date: "2026-06-15",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: 1,
+    motif: "Remise à niveau et étiquetage rapide des nouveaux arrivages",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Classement par date de péremption rigoureux.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-06-15T16:00:00",
+    createdAt: "2026-06-15T15:30:00"
+  },
+  {
+    id: "eval-15",
+    date: "2026-06-10",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: 1,
+    motif: "Gestion exemplaire des dossiers de tiers payant mutuelles",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Télétransmissions validées sans aucun rejet.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-06-10T18:00:00",
+    createdAt: "2026-06-10T17:30:00"
+  },
+  {
+    id: "eval-16",
+    date: "2026-06-05",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Aide spontanée apportée au rayon orthopédie et matériel",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Démonstration patient et installation de matériel médical.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-06-05T15:30:00",
+    createdAt: "2026-06-05T15:00:00"
+  },
+
+  // MAI 2026
+  {
+    id: "eval-17",
+    date: "2026-05-28",
+    employeeId: "emp-1",
+    employeeName: "Awa Diop",
+    points: 1,
+    motif: "Assiduité et fidélisation des nouveaux patients",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Explications claires sur l'utilisation de l'application de l'officine.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-05-28T18:00:00",
+    createdAt: "2026-05-28T17:30:00"
+  },
+  {
+    id: "eval-18",
+    date: "2026-05-22",
+    employeeId: "emp-2",
+    employeeName: "Mamadou Diallo",
+    points: 1,
+    motif: "Zéro rupture de stock sur les produits essentiels",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Seuils d'alerte configurés et anticipations des commandes grossistes.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-05-22T16:30:00",
+    createdAt: "2026-05-22T16:00:00"
+  },
+  {
+    id: "eval-19",
+    date: "2026-05-18",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: 1,
+    motif: "Audit interne de conformité des ordonnances sécurisées",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Contrôle qualité 100% conforme aux normes en vigueur.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-05-18T19:00:00",
+    createdAt: "2026-05-18T18:30:00"
+  },
+  {
+    id: "eval-20",
+    date: "2026-05-12",
+    employeeId: "emp-4",
+    employeeName: "Fatou Bensouda",
+    points: -1,
+    motif: "Retard de saisie d'un relevé bancaire hebdomadaire",
+    supervisor: "Direction (Edinam)",
+    staffJustification: "Problème d'accès à la plateforme bancaire, régularisé le lendemain.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-05-12T17:45:00",
+    createdAt: "2026-05-12T17:15:00"
+  },
+  {
+    id: "eval-21",
+    date: "2026-05-08",
+    employeeId: "emp-5",
+    employeeName: "Youssouf Koné",
+    points: 1,
+    motif: "Ponctualité constante et réactivité lors des gardes de week-end",
+    supervisor: "Koffi Mensah",
+    staffJustification: "Disponibilité immédiate pour remplacer un collègue souffrant.",
+    isValidated: true,
+    validatedBy: "Edinam",
+    validatedAt: "2026-05-08T18:00:00",
+    createdAt: "2026-05-08T17:30:00"
+  }
+];
+

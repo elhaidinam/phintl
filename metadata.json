@@ -1,0 +1,6 @@
+{
+  "name": "Portail de Redevabilité - Pharmacie Internationale",
+  "description": "Portail de gestion et de redevabilité pour le personnel de la Pharmacie Internationale.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
